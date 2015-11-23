@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask
 app = Flask(__name__)
 
@@ -13,4 +15,4 @@ def standings():
 
 
 if __name__ == "__main__":
-	app.run(debug=True)  # don't forget to change this line on production
+	app.run(host="0.0.0.0", debug=True)  # don't forget to change this line on production
