@@ -18,7 +18,9 @@ def no_cron_job_with_such_comment(cron, comment):
 def add_python_crontab_job(scripts_directory, cron, contest):
     # create a job that executes given command
     path_to_contest_serving_script = os.path.join(scripts_directory, config.CONTEST_SERVING_SCRIPT_NAME)
-    command_to_execute = path_to_contest_serving_script + " " + str(contest["id"])
+    command_to_execute = path_to_contest_serving_script + " " + \
+                         str(contest["id"]) + " " + \
+                         str(contest["durationSeconds"])
     job = cron.new(command=command_to_execute, comment=contest_id)
 
     # set job time
