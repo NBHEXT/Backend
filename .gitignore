@@ -1,0 +1,6 @@
+# server-side files for connection between python application and nginx web server
+flask-app/__pycache__/*
+flask-app/app.ini
+flask-app/deactivate/*
+flask-app/nbhext_env/*
+flask-app/wsgi.py
