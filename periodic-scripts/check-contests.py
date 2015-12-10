@@ -27,3 +27,4 @@ if response_json["status"] == "OK":
             job = cron.new(command=command_to_execute, comment=contest_id)
             job.minutes.every(1)
             cron.write()
+

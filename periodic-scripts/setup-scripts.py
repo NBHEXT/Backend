@@ -13,3 +13,4 @@ cron = CronTab(user=True)
 job = cron.new(command=command_to_execute_in_cron)
 job.hours.every(CONTEST_CHECK_INTERVAL)
 cron.write()
+
