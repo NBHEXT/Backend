@@ -10,6 +10,10 @@ current_directory = os.getcwd()
 cron = CronTab(user=True)  # get crontab for current user
 
 
+def is_needed_contest(contest):
+    return contest["phase"] == "BEFORE" and contest["type"] == "CF"
+
+
 response_json = requests.get(ENDPOINT_TO_CHECK_CONTESTS).json()
 if response_json["status"] == "OK":
     list_of_contests = response_json["result"]
@@ -17,7 +21,7 @@ if response_json["status"] == "OK":
     for contest in list_of_contests:
         contest_id = str(contest["id"])
 
-        if contest["phase"] == "BEFORE" and not list(cron.find_comment(contest_id)):
+        if is_needed_contest(contest) and not list(cron.find_comment(contest_id)):
             path_to_contest_serving_script = os.path.join(current_directory, CONTEST_SERVING_SCRIPT_NAME)
             command_to_execute = path_to_contest_serving_script + " " + contest_id
             job = cron.new(command=command_to_execute, comment=contest_id)
