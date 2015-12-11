@@ -1,5 +1,8 @@
 # This file contains constants that are used by periodic scripts.
 
+GLOBAL_RATINGS_ENDPOINT = "http://codeforces.com/api/user.ratedList?activeOnly=false"
+GLOBAL_RATINGS_CHECK_INTERVAL = 5  # hours
+GLOBAL_RATINGS_CHECK_SCRIPT_NAME = "update-global-ratings.py"
 
 CONTEST_CHECK_INTERVAL = 8  # hours
 CONTEST_CHECK_SCRIPT_NAME = "check-contests.py"

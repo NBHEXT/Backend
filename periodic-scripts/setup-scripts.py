@@ -7,11 +7,18 @@ from config import *
 
 
 current_directory = os.getcwd()
-command_to_execute_in_cron = os.path.join(current_directory, CONTEST_CHECK_SCRIPT_NAME)
-
 cron = CronTab(user=True)
-job = cron.new(command=command_to_execute_in_cron)
-job.hours.every(CONTEST_CHECK_INTERVAL)
+
+# set job to check_contests
+check_contests_job_command = os.path.join(current_directory, CONTEST_CHECK_SCRIPT_NAME)
+check_contests_job = cron.new(command=check_contests_job_command)
+check_contests_job.hours.every(CONTEST_CHECK_INTERVAL)
+
+# set job to check global ratings changes
+check_global_ratings_command = os.path.join(current_directory, GLOBAL_RATINGS_CHECK_SCRIPT_NAME)
+check_global_ratings_job = cron.new(command=check_global_ratings_command)
+check_global_ratings_job.hours.every(GLOBAL_RATINGS_CHECK_INTERVAL)
+
 cron.write()
 
 print('''WARNING!
