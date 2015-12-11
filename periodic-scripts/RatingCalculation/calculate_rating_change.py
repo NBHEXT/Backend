@@ -1,6 +1,6 @@
 __author__ = 'rubanenko'
 
-from user import User
+from .user import User
 from math import sqrt
 from time import clock
 

@@ -6,10 +6,13 @@ import redis
 from time import time, sleep
 import config
 import datetime
+from RatingCalculation.user import User
+from RatingCalculation.calculate_rating_change import calculate_rating_change
 
 
 def do_contest_update(contest_id, redis_server):
     print("do_contest_update called with args %s %s" % (repr(contest_id), repr(redis_server)))
+    calculate_rating_change([])
 
 
 if __name__ == "__main__":
