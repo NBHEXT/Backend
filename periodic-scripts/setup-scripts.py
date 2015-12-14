@@ -6,7 +6,7 @@ import os
 from config import *
 
 
-current_directory = os.getcwd()
+current_directory = os.path.dirname(os.path.realpath(__file__))
 cron = CronTab(user=True)
 
 # set job to check_contests
