@@ -83,5 +83,5 @@ def calculate_rating_change(users):
     process(users)
     result = {}
     for user in users:
-        result[user.id] = user.delta + user.rating
+        result[user.id] = user.delta
     return result
