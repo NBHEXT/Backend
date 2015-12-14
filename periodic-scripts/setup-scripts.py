@@ -19,6 +19,11 @@ check_global_ratings_command = os.path.join(current_directory, GLOBAL_RATINGS_CH
 check_global_ratings_job = cron.new(command=check_global_ratings_command)
 check_global_ratings_job.hours.every(GLOBAL_RATINGS_CHECK_INTERVAL)
 
+# set job to remove past contests from cron
+remove_past_contests_command = os.path.join(current_directory, REMOVE_PAST_CONTESTS_SCRIPT_NAME)
+remove_past_contests_job = cron.new(command=remove_past_contests_command)
+remove_past_contests_job.day.every(REMOVE_PAST_CONTESTS_JOB_FREQUENCY)
+
 cron.write()
 
 print('''WARNING!
