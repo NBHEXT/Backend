@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import requests
 from crontab import CronTab
 import os
 import config
 from datetime import datetime
+from utils import http_get_json
 
 
 def is_needed_contest(contest):
@@ -33,7 +33,8 @@ if __name__ == "__main__":
     current_directory = os.getcwd()
     cron = CronTab(user=True)  # get crontab for current user
 
-    response_json = requests.get(config.ENDPOINT_TO_CHECK_CONTESTS).json()
+    response_json = http_get_json(config.ENDPOINT_TO_CHECK_CONTESTS, config.API_CALL_TIMEOUT)
+
     if response_json["status"] == "OK":
         list_of_contests = response_json["result"]
 

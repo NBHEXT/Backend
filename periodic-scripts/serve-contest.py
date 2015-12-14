@@ -8,7 +8,7 @@ import config
 import datetime
 from RatingCalculation.user import User
 from RatingCalculation.calculate_rating_change import calculate_rating_change
-import requests
+from utils import http_get_json
 import json
 
 
@@ -54,13 +54,22 @@ if __name__ == "__main__":
 
     # main loop begin
     while True:
+        # Fetch data from the server.
+        official_endpoint = config.OFFICIAL_STANDINGS_ENDPOINT % (contest_id,)
+        unofficial_endpoint = config.UNOFFICIAL_STANDINGS_ENDPOINT % (contest_id,)
+        timeout = config.API_CALL_TIMEOUT
+
+        official_standings = http_get_json(official_endpoint, timeout)
+        unofficial_standings = http_get_json(unofficial_endpoint, timeout)
+
         contest_data = {
-            "official": requests.get(config.OFFICIAL_STANDINGS_ENDPOINT % (contest_id,)).json(),
-            "unofficial": requests.get(config.UNOFFICIAL_STANDINGS_ENDPOINT % (contest_id,)).json()
+            "official": official_standings,
+            "unofficial": unofficial_standings
         }
 
+        # Check whether we need to recalculate rating deltas.
         contest_status = contest_data["official"]["result"]["contest"]["phase"]
-        if contest_status != "CODING":
+        if contest_status != "FINISHED":  # change to FINISHED if u wanna test/debug
             break
 
         try:
