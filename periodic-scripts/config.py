@@ -12,3 +12,5 @@ CONTEST_SERVING_SCRIPT_NAME = "serve-contest.py"
 CONTEST_POSSIBLE_SHIFT_MAX_TIME_SEC = 20*60  # 20 min
 SLEEP_TIME_AFTER_CONTEST_UPDATE = 3
 SERVE_CONTEST_LOG_FILE = "/var/log/nbhext"
+OFFICIAL_STANDINGS_ENDPOINT = "http://codeforces.com/api/contest.standings?contestId=%d&showUnofficial=false"
+UNOFFICIAL_STANDINGS_ENDPOINT = "http://codeforces.com/api/contest.standings?contestId=%d&showUnofficial=true"
