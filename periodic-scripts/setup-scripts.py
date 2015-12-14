@@ -22,6 +22,6 @@ check_global_ratings_job.hours.every(GLOBAL_RATINGS_CHECK_INTERVAL)
 cron.write()
 
 print('''WARNING!
-         All scripts are assuming that the time on NBHEXT-is server the same as on Codeforces server.
+         All scripts are assuming that the time on NBHEXT-server is the same as on Codeforces server.
          Please set date and time on production server synchronized with CF.
       ''')
