@@ -35,6 +35,7 @@ def do_contest_update(contest_id, contest_data, global_ratings, redis_server):
         redis_key = str(contest_id) + "." + data_type
         redis_value = json.dumps(deltas)
         redis_server.set(redis_key, redis_value)
+        print(len(redis_value))
 
 
 def get_global_ratings(redis_server):
@@ -62,21 +63,22 @@ if __name__ == "__main__":
         official_standings = http_get_json(official_endpoint, timeout)
         unofficial_standings = http_get_json(unofficial_endpoint, timeout)
 
-        contest_data = {
-            "official": official_standings,
-            "unofficial": unofficial_standings
-        }
+        if official_standings["status"] == "OK" and unofficial_standings["status"] == "OK":
+            contest_data = {
+                "official": official_standings,
+                "unofficial": unofficial_standings
+            }
 
-        # Check whether we need to recalculate rating deltas.
-        contest_status = contest_data["official"]["result"]["contest"]["phase"]
-        if contest_status != "FINISHED":  # change to FINISHED if u wanna test/debug
-            break
+            # Check whether we need to recalculate rating deltas.
+            contest_status = contest_data["official"]["result"]["contest"]["phase"]
+            if contest_status != "FINISHED":  # change to FINISHED if u wanna test/debug
+                break
 
-        try:
-            do_contest_update(contest_id, contest_data, global_ratings, redis_server)
-        except Exception as ex:
-            print("Exception occured! Please view log file for details.")
-            log_file.write(datetime.datetime.now().isoformat() + " " + repr(ex) + "\n")
+            try:
+                do_contest_update(contest_id, contest_data, global_ratings, redis_server)
+            except Exception as ex:
+                print("Exception occured! Please view log file for details.")
+                log_file.write(datetime.datetime.now().isoformat() + " " + repr(ex) + "\n")
 
         sleep(config.SLEEP_TIME_AFTER_CONTEST_UPDATE)
     # main loop end
