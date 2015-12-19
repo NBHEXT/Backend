@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-This script checks whether there are any contests not added to be server by our scripts,
+This script checks whether there are any contests not added to be served by our scripts,
 and adds the corresponding job to cron if there are any.
 """
 
