@@ -40,7 +40,6 @@ def do_contest_update(contest_id, contest_data, global_ratings, redis_server):
         redis_key = str(contest_id) + "." + data_type
         redis_value = json.dumps(deltas)
         redis_server.set(redis_key, redis_value)
-        print(len(redis_value))
 
 
 def get_global_ratings(redis_server):
