@@ -5,11 +5,10 @@ This script checks whether there are any contests not added to be server by our 
 and adds the corresponding job to cron if there are any.
 """
 
-from crontab import CronTab
 import os
 import config
 from datetime import datetime
-from utils import http_get_json
+from utils import http_get_json, get_cron
 
 
 def is_needed_contest(contest):
@@ -38,7 +37,7 @@ def add_python_crontab_job(scripts_directory, cron, contest):
 
 if __name__ == "__main__":
     current_directory = os.getcwd()
-    cron = CronTab(user=True)  # get crontab for current user
+    cron = get_cron()
 
     response_json = http_get_json(config.ENDPOINT_TO_CHECK_CONTESTS, config.API_CALL_TIMEOUT)
 
@@ -52,4 +51,3 @@ if __name__ == "__main__":
                 add_python_crontab_job(current_directory, cron, contest)
 
         cron.write()
-

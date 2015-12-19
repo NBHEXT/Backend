@@ -4,9 +4,9 @@
 Script to remove all jobs from current user's crontab.
 """
 
-from crontab import CronTab
+from utils import get_cron
 
-cron = CronTab(user=True)
+
+cron = get_cron()
 cron.remove_all()
 cron.write()
-

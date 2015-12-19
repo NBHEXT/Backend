@@ -21,4 +21,3 @@ UNOFFICIAL_STANDINGS_ENDPOINT = "http://codeforces.com/api/contest.standings?con
 
 REMOVE_PAST_CONTESTS_SCRIPT_NAME = "remove-past-contests.py"
 REMOVE_PAST_CONTESTS_JOB_FREQUENCY = 2  # days
-

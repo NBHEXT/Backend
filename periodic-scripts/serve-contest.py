@@ -8,13 +8,12 @@ recalculates users' rating deltas and writes these deltas to redis.
 
 
 import sys
-import redis
 from time import time, sleep
 import config
 import datetime
 from RatingCalculation.user import User
 from RatingCalculation.calculate_rating_change import calculate_rating_change
-from utils import http_get_json
+from utils import http_get_json, get_cron, get_redis
 import json
 
 
@@ -86,7 +85,7 @@ if __name__ == "__main__":
 
     contest_id = int(sys.argv[1])
 
-    redis_server = redis.StrictRedis(host="localhost", port=6379, db=0)
+    redis_server = get_redis()
     log_file = open(config.SERVE_CONTEST_LOG_FILE, "a")
     global_ratings = get_global_ratings(redis_server)
 
@@ -101,4 +100,3 @@ if __name__ == "__main__":
     do_main_loop_iteration(contest_id, redis_server, log_file, global_ratings)
 
     log_file.close()
-

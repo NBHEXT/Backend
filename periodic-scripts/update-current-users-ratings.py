@@ -6,8 +6,8 @@ Script that updates in redis currents ratings of all codeforces users.
 
 import requests
 import config
-import redis
 import json
+from utils import get_redis
 
 
 if __name__ == "__main__":
@@ -17,6 +17,5 @@ if __name__ == "__main__":
     for user in global_ratings["result"]:
         dict_to_store[user["handle"]] = user["rating"]
 
-    redis_server = redis.StrictRedis(host="localhost", port=6379, db=0)
+    redis_server = get_redis()
     redis_server.set("global_ratings", json.dumps(dict_to_store))
-

@@ -4,13 +4,12 @@
 Script to remove from the current user's crontab all jobs about finished contests.
 """
 
-from crontab import CronTab
 import config
-from utils import http_get_json
+from utils import http_get_json, get_cron
 from time import sleep
 
 
-cron = CronTab(user=True)
+cron = get_cron()
 
 for job in cron:
     if config.CONTEST_SERVING_SCRIPT_NAME in job.command:
