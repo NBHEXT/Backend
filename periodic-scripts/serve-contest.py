@@ -48,8 +48,6 @@ def get_global_ratings(redis_server):
 
 
 def do_main_loop_iteration(contest_id, redis_server, log_file, global_ratings):
-    contest_is_running = True
-
     # Fetch data from the server.
     official_endpoint = config.OFFICIAL_STANDINGS_ENDPOINT % (contest_id,)
     unofficial_endpoint = config.UNOFFICIAL_STANDINGS_ENDPOINT % (contest_id,)
@@ -58,22 +56,22 @@ def do_main_loop_iteration(contest_id, redis_server, log_file, global_ratings):
     official_standings = http_get_json(official_endpoint, timeout)
     unofficial_standings = http_get_json(unofficial_endpoint, timeout)
 
+    contest_is_running = True
     if official_standings["status"] == "OK" and unofficial_standings["status"] == "OK":
         contest_data = {
             "official": official_standings,
             "unofficial": unofficial_standings
         }
 
-        # Check whether we need to recalculate rating deltas.
+        try:
+            do_contest_update(contest_id, contest_data, global_ratings, redis_server)
+        except Exception as ex:
+            print("Exception occured! Please view log file for details.")
+            log_file.write(datetime.datetime.now().isoformat() + " " + repr(ex) + "\n")
+
         contest_status = contest_data["official"]["result"]["contest"]["phase"]
         if contest_status != "FINISHED":  # change to FINISHED if u wanna test/debug
             contest_is_running = False
-        else:
-            try:
-                do_contest_update(contest_id, contest_data, global_ratings, redis_server)
-            except Exception as ex:
-                print("Exception occured! Please view log file for details.")
-                log_file.write(datetime.datetime.now().isoformat() + " " + repr(ex) + "\n")
 
     return contest_is_running
 
