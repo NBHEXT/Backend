@@ -6,10 +6,10 @@ Script to initially add all necessary scripts to crontab.
 
 import os
 from config import *
-from utils import get_cron
+from utils import get_cron, get_current_directory
 
 
-current_directory = os.path.dirname(os.path.realpath(__file__))
+current_directory = get_current_directory()
 cron = get_cron()
 
 # set job to check_contests

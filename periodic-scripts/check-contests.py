@@ -8,7 +8,7 @@ and adds the corresponding job to cron if there are any.
 import os
 import config
 from datetime import datetime
-from utils import http_get_json, get_cron
+from utils import http_get_json, get_cron, get_current_directory
 
 
 def is_needed_contest(contest):
@@ -36,7 +36,7 @@ def add_python_crontab_job(scripts_directory, cron, contest):
 
 
 if __name__ == "__main__":
-    current_directory = os.getcwd()
+    current_directory = get_current_directory()
     cron = get_cron()
 
     response_json = http_get_json(config.ENDPOINT_TO_CHECK_CONTESTS, config.API_CALL_TIMEOUT)
