@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Script to remove from the current user's crontab all jobs about finished contests.
+"""
+
 from crontab import CronTab
 import config
 from utils import http_get_json

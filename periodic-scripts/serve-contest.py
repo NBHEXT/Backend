@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""
+Script that should work during the contest.
+It runs periodically while the contest is in coding phase,
+recalculates users' rating deltas and writes these deltas to redis.
+"""
+
 
 import sys
 import redis

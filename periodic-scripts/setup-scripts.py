@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""
+Script to initially add all necessary scripts to crontab.
+"""
 
 from crontab import CronTab
 import os

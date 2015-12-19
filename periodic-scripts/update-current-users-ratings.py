@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+"""
+Script that updates in redis currents ratings of all codeforces users.
+"""
 
 import requests
 import config

@@ -1,4 +1,7 @@
-# This file contains constants that are used by periodic scripts.
+"""
+This file contains constants that are used by periodic scripts.
+"""
+
 
 API_CALL_TIMEOUT = 5  # seconds
 
