@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask
+from flask import Flask, jsonify
 app = Flask(__name__)
 
 
@@ -11,7 +11,12 @@ def index():
 
 @app.route("/api/standings")
 def standings():
-	return "Some JSON about standings"
+	return jsonify({"result": "OK", 
+                        "deltas": {
+                                "TooSimple": 100500,
+                                "Um_nik": -123123
+                        }
+                })
 
 
 if __name__ == "__main__":
